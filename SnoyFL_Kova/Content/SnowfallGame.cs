@@ -1,14 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SnoyFL_Kova
 {
     /// <summary>
+    /// Представляет основную логику для игры
     /// </summary>
     public class SnowfallGame : Game
     {
@@ -17,6 +14,9 @@ namespace SnoyFL_Kova
         private Texture2D snowflakeTexture;
         private Snowflake[] snowflakes;
 
+        /// <summary>
+        /// Инициализация объекта SnowfallGame
+        /// </summary>
         public SnowfallGame()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -30,9 +30,14 @@ namespace SnoyFL_Kova
         protected override void Initialize()
         {
             snowflakes = new Snowflake[200];
-            for (int i = 0; i < snowflakes.Length; i++)
+            for (var i = 0; i < snowflakes.Length; i++)
             {
-                snowflakes[i] = new Snowflake(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                snowflakes[i] = new Snowflake();
+                SnowflakeBehavior.Initialize(
+                    snowflakes[i],
+                    graphics.PreferredBackBufferWidth,
+                    graphics.PreferredBackBufferHeight
+                    );
             }
 
             base.Initialize();
@@ -52,15 +57,21 @@ namespace SnoyFL_Kova
         /// <summary>
         /// Обновление снежинок
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">Время, прошедшее с последнего обновления</param>
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
             foreach (var snowflake in snowflakes)
             {
-                snowflake.Update(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight);
+                SnowflakeBehavior.Update(
+                    snowflake,
+                    graphics.PreferredBackBufferWidth,
+                    graphics.PreferredBackBufferHeight
+                    );
             }
 
             base.Update(gameTime);
@@ -69,7 +80,7 @@ namespace SnoyFL_Kova
         /// <summary>
         /// Рисование снежинок
         /// </summary>
-        /// <param name="gameTime"></param>
+        /// <param name="gameTime">Время отрисовки</param>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
@@ -77,8 +88,13 @@ namespace SnoyFL_Kova
             spriteBatch.Begin();
             foreach (var snowflake in snowflakes)
             {
-                snowflake.Draw(spriteBatch, snowflakeTexture);
+                SnowflakeBehavior.Draw(
+                    spriteBatch,
+                    snowflake,
+                    snowflakeTexture
+                    );
             }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

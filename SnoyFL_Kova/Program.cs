@@ -1,17 +1,16 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
 
 namespace SnoyFL_Kova
 {
-    static class Program
+    static internal class Program
     {
         /// <summary>
         /// Точка входа в программу.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
-           using (var game = new SnowfallGame())
+            using (var game = new SnowfallGame())
             {
                 game.Run();
             }
