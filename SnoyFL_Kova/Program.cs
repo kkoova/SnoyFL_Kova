@@ -1,16 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace SnoyFL_Kova
 {
     static class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Точка входа в программу.
+        /// </summary>
+        [STAThread]
+        static void Main()
         {
-            using (Game  game = new Game())
+           using (var game = new SnowfallGame())
             {
                 game.Run();
             }
