@@ -12,6 +12,7 @@ namespace SnoyFL_Kova
         private readonly GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private Texture2D snowflakeTexture;
+        private Texture2D backgroundTexture;
         private Snowflake[] snowflakes;
 
         /// <summary>
@@ -44,12 +45,12 @@ namespace SnoyFL_Kova
         }
 
         /// <summary>
-        /// Создание текстуры для снежинки
+        /// Создание текстуры для снежинки и фона
         /// </summary>
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            backgroundTexture = Content.Load<Texture2D>("forest");
             snowflakeTexture = new Texture2D(GraphicsDevice, 1, 1);
             snowflakeTexture.SetData(new[] { Color.White });
         }
@@ -86,6 +87,7 @@ namespace SnoyFL_Kova
             GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
+            spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight), Color.White);
             foreach (var snowflake in snowflakes)
             {
                 SnowflakeBehavior.Draw(
