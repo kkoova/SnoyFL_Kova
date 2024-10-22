@@ -37,6 +37,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -45,10 +46,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\SnowflakeBehavior.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Content\SnowfallGame.cs" />
+    <Compile Include="Entities\Snowflake.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d "${ProjectDir}fnalibs\x64\*.dll" "${ProjectDir}${OutDir}"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
